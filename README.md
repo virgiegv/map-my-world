@@ -9,7 +9,7 @@ pip install requirements.txt
 
 3) install postgreSQL 16
 
-4) create database MapMyWorld
+4) create database MapMyWorld and substitute user and password in the SQLALCHEMY_DATABASE_URL variable in src/db/database.py
 
 5) run:
     fastapi dev main.py
