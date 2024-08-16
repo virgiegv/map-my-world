@@ -8,8 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install "fastapi[standard]"
+RUN python -m ensurepip --upgrade
+RUN python -m pip install --upgrade setuptools
+RUN python -m pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install "fastapi[standard]"
 
 # Copy the rest of the application code into the container
 COPY . .

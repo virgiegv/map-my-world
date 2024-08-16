@@ -13,3 +13,9 @@ pip install requirements.txt
 
 5) run:
     fastapi dev main.py
+
+
+Run tests:
+1) create database "testmapmyworld" and substitute user and password in the SQLALCHEMY_TEST_DATABASE_URL variable in src/tests/conf_test.py
+2) pip install pytest
+3) pytest src/tests/test_crud.py
