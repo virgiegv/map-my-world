@@ -16,6 +16,8 @@ RUN python -m pip install "fastapi[standard]"
 # Copy the rest of the application code into the container
 COPY . .
 
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 # Expose the port FastAPI runs on
 EXPOSE 8000
 
