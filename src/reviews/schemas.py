@@ -11,8 +11,10 @@ class ReviewBase(BaseModel):
 class ReviewCreate(ReviewBase):
     pass
 
-class ReviewUpdate(ReviewBase):
-    pass
+class ReviewUpdate(BaseModel):
+    last_reviewed_date: datetime | None = None
+    category_id: int | None = None
+    location_id: int | None = None
 
 class Review(ReviewBase):
     id: int

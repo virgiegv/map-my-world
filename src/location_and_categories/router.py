@@ -9,7 +9,12 @@ router = APIRouter()
 
 @router.post("/category/{name}", tags=["categories"], response_model=schemas.Category)
 def create_category(name: str, db: Session = Depends(get_db)):
-    return crud.create_category(db, category=schemas.CategoryCreate(name=name))
+    result = crud.create_category(db, category=schemas.CategoryCreate(name=name))
+    print(result)
+    if result['error']:
+        raise HTTPException(status_code=result['status'], detail=result['detail'])
+    else:
+        return result['detail']
 
 
 @router.get("/category/", tags=["categories"], response_model=list[schemas.Category])
@@ -30,9 +35,9 @@ def get_category_by_id(category_id: int, db: Session = Depends(get_db)):
 @router.put("/category/{category_id}", tags=["categories"], response_model=schemas.Category)
 def update_category(category_id: int, category: schemas.CategoryUpdate, db: Session = Depends(get_db)):
     update_result = crud.update_category(db, category, category_id)
-    if update_result == 0:
-        raise HTTPException(status_code=404, detail="Category not found")
-    return update_result
+    if update_result['error']:
+        raise HTTPException(status_code=update_result['status'], detail=update_result['detail'])
+    return update_result['detail']
 
 
 @router.delete("/category/{category_id}", tags=["categories"],)
@@ -45,16 +50,24 @@ def delete_category(category_id: int, db: Session = Depends(get_db)):
 
 @router.post("/category/{category_id}/location", tags=["categories", "locations"], response_model=schemas.Location)
 def create_location_for_category(category_id: int, location: schemas.LocationCreate, db: Session = Depends(get_db)):
-    return crud.create_location(
+    result = crud.create_location(
         db, location=location, category_id=category_id
     )
+    if result['error']:
+        raise HTTPException(status_code=result['status'], detail=result['detail'])
+    else:
+        return result['detail']
 
 
 @router.post("/location/", tags=["locations"], response_model=schemas.Location)
 def create_location_without_category(location: schemas.LocationCreate, db: Session = Depends(get_db)):
-    return crud.create_location(
+    result = crud.create_location(
         db, location=location
     )
+    if result['error']:
+        raise HTTPException(status_code=result['status'], detail=result['detail'])
+    else:
+        return result['detail']
 
 
 @router.get("/location/{location_id}", tags=["locations"], response_model=schemas.Location)
@@ -83,6 +96,8 @@ def delete_location(location_id: int, db: Session = Depends(get_db)):
 @router.put("/location/{location_id}", tags=["locations"], response_model=schemas.Location)
 def update_location(location_id: int, location: schemas.LocationUpdate, db: Session = Depends(get_db)):
     update_result = crud.update_location(db, location, location_id)
-    if update_result == 0:
-        raise HTTPException(status_code=404, detail="Location not found")
-    return update_result
+
+    if update_result['error']:
+        raise HTTPException(status_code=update_result['status'], detail=update_result['detail'])
+    else:
+        return update_result['detail']
