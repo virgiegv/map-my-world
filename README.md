@@ -7,6 +7,7 @@ This is a project for management of locations of interest around the world.
 ```docker-compose up --build```
 
 ### Option 2: Run manually
+It's recommended you create a virtual environment and activate it before proceeding. 
 
 1) Install fastapi:
 ```pip install "fastapi[standard]"```
@@ -37,6 +38,6 @@ You can also change this database name.
 
 API docs will be available at http://127.0.0.1/docs 
 
-A Postman collection with examples is available at: https://documenter.getpostman.com/view/36652229/2sA3s7jpLS
+A Postman collection with examples and in-depth descriptions of the available endpoint is available at: https://documenter.getpostman.com/view/36652229/2sA3s7jpLS
 
-See other docs at this repo's wiki. 
+See other docs at this repo's wiki: https://github.com/virgiegv/map-my-world/wiki/Map-My-World:-Design-and-Considerations
